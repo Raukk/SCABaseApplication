@@ -17,6 +17,8 @@ import { MatNativeDateModule } from '@angular/material';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatPaginatorModule } from '@angular/material';
+import { MatSortModule } from '@angular/material';
 
 
 @NgModule({
@@ -39,6 +41,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatSelectModule,
     MatTableModule,
     MatDialogModule,
+    MatPaginatorModule,
+    MatSortModule,
     RouterModule.forRoot([
       { path: '', component: ScheduleComponent, pathMatch: 'full' }
     ])

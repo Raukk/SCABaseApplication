@@ -1,0 +1,23 @@
+
+
+<mat-form-field>
+  <mat-select placeholder="Select Facility">
+    <mat-option *ngFor="let facility of facilities" [value]="facility.value">
+      {{facility.viewValue}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<br />
+
+<mat-form-field>
+  <input matInput [matDatepickerFilter]="onlyMondays" [matDatepicker]="picker" placeholder="Week Start Date">
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>
+
+<br />
+
+<button (click)="incrementCounter()">View Schedule</button>
+
+<br />

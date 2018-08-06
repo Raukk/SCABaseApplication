@@ -2,8 +2,8 @@
 
 <mat-form-field>
   <mat-select placeholder="Select Facility" [(value)]="selectedFacility">
-    <mat-option *ngFor="let facility of facilities" [value]="facility.value">
-      {{facility.viewValue}}
+    <mat-option *ngFor="let facility of facilities" [value]="facility">
+      {{facility.facilityName}} ({{facility.facilityId}})
     </mat-option>
   </mat-select>
 </mat-form-field>
@@ -20,8 +20,6 @@
 
 <button (click)="viewSchedule()">{{ scheduleViewed ? "Refresh" : "View Schedule" }}</button>
 
-<br />
 
-<app-schedule-view *ngIf="scheduleViewed"></app-schedule-view>
-
+<app-schedule-view #scheduleview *ngIf="scheduleViewed" [MondayDate]="selectedDate.toISOString()" [FacilityId]="selectedFacility.facilityId"></app-schedule-view>
 

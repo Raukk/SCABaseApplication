@@ -1,8 +1,9 @@
-import { Component, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-
-
+import { IFacility } from '../view_models/facility.model';
+import { FacilityService } from '../services/facility.service';
+import { ScheduleViewComponent } from './schedule-view/schedule-view.component';
 
 @Component({
   selector: 'schedule-view-dialog',
@@ -16,16 +17,6 @@ export class MessageDialog {
 
 }
 
-
-
-export interface Facility {
-  value: string;
-  viewValue: string;
-}
-
-
-
-
 @Component({
   selector: 'app-schedule-component',
   templateUrl: './schedule.component.html',
@@ -33,12 +24,21 @@ export interface Facility {
 })
 export class ScheduleComponent {
   public scheduleViewed = false;
-  public selectedFacility : Facility = null;
+  public selectedFacility: IFacility = null;
   public selectedDate: Date = null;
+  public facilities: IFacility[];
+  @ViewChild('scheduleview') child: ScheduleViewComponent;
 
-  public constructor(private titleService: Title, public dialog: MatDialog)
+  public constructor(
+    private facilityService: FacilityService,
+    private titleService: Title,
+    public dialog: MatDialog)
   {
     this.titleService.setTitle("Daily Schedule");
+  }
+
+  ngOnInit() {
+    this.facilityService.getFacilities().subscribe(data => { this.facilities = data; });
   }
 
   openDialog(text : string): void {
@@ -46,15 +46,7 @@ export class ScheduleComponent {
       width: '250px',
       data: text
     });
-  }
-
-
-  public facilities: Facility[] = [
-    { value: '0', viewValue: 'Apple' },
-    { value: '1', viewValue: 'Bannana' },
-    { value: '3', viewValue: 'Orange' },
-    { value: '4', viewValue: 'Plum' }
-  ];
+  } 
 
   public onlyMondays = (d: Date): boolean => {
     const day = d.getDay();
@@ -77,16 +69,13 @@ export class ScheduleComponent {
       // warn user they must select a date and the Date must be a Monday
       this.openDialog("You must select a Monday");
       return;
-    }
-    
+    }    
 
     if (this.scheduleViewed)
     {
+
       // Refresh data
-
-
-
-
+      this.child.refreshData();
 
     }
 

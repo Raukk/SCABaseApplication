@@ -9,6 +9,11 @@ import { ScheduleComponent, MessageDialog } from './schedule/schedule.component'
 import { ScheduleViewComponent } from './schedule/schedule-view/schedule-view.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import { FacilityService } from './services/facility.service';
+import { ScheduleService } from './services/schedule.service';
+
+
+
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatInputModule } from '@angular/material';

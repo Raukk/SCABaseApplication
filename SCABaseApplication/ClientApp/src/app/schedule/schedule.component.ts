@@ -41,7 +41,7 @@ export class ScheduleComponent {
     this.facilityService.getFacilities().subscribe(data => { this.facilities = data; });
   }
 
-  openDialog(text : string): void {
+  public openDialog(text : string): void {
     const dialogRef = this.dialog.open(MessageDialog, {
       width: '250px',
       data: text

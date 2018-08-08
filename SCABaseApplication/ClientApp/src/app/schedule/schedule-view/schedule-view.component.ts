@@ -11,13 +11,14 @@ import { ISchedule } from '../../view_models/schedule.model';
 export class ScheduleViewComponent implements OnInit {
   public displayedColumns: string[] = ['teammateName', 'teammateType', 'monday', 'tuesday','wednesday','thursday','friday','saturday','sunday'];
   public dataSource: MatTableDataSource<ISchedule>;
+  public downloadUrl: string = "#";
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   @Input() FacilityId: string;
   @Input() MondayDate: string;
-  
+
   constructor(private scheduleService: ScheduleService, private changeDetectorRefs: ChangeDetectorRef) {
 
     let placeholder: ISchedule[];
@@ -25,11 +26,14 @@ export class ScheduleViewComponent implements OnInit {
 
   }
 
-  refreshData()
+  public refreshData()
   {
     
     console.log("refresh");
     if (this.FacilityId != null && this.MondayDate != null) {
+    
+      this.downloadUrl = '/api/Schedule/SchedulesCsv/' + this.FacilityId + '/' + this.MondayDate;
+      console.log(this.downloadUrl);
 
       this.scheduleService.getSchedules(this.FacilityId, this.MondayDate)
         .subscribe(data => {
@@ -42,12 +46,18 @@ export class ScheduleViewComponent implements OnInit {
 
         });
 
-
     }
 
   }
 
-  applyFilter(filterValue: string) {
+  public downloadCsv() {
+
+    console.log(this.downloadUrl);
+    window.location.href = this.downloadUrl;
+
+  }
+
+  public applyFilter(filterValue: string) {
 
     this.dataSource.filter = filterValue.trim().toLowerCase();
 

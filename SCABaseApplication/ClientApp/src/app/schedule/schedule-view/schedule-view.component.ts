@@ -37,8 +37,11 @@ export class ScheduleViewComponent implements OnInit {
           // Assign the data to the data source for the table to render
           this.dataSource = new MatTableDataSource(data);
           this.changeDetectorRefs.detectChanges();
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
 
         });
+
 
     }
 
@@ -58,10 +61,6 @@ export class ScheduleViewComponent implements OnInit {
 
     this.refreshData();
 
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-
   }
 
 }
-
